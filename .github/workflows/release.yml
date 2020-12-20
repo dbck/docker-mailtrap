@@ -1,0 +1,40 @@
+name: Release image
+
+on:
+  push:
+    branches: [ release ]
+
+jobs:
+  release:
+    name: Release docker image
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+
+    - name: Prepare tag name
+      run: |
+        export TAG=$(date +%Y%m%d-%H%M%S)
+        echo "TAG=${TAG}" >> $GITHUB_ENV
+
+    - name: Build to Docker Hub
+      run: |
+        docker-compose -f docker-compose.yml -f docker-compose.build.yml -f docker-compose.build.latest.yml build
+        docker-compose push
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@latest
+      with:
+        GITHUB_TOKEN: ${{ github.token }}
+        tag_name: ${TAG}
+        draft: false
+        prerelease: false

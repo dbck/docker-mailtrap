@@ -1,0 +1,18 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /usr/share/roundcube;
+    index index.php index.html index.htm;
+
+    server_name roundcube;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+    }
+}
