@@ -27,7 +27,7 @@ jobs:
     - name: Build to Docker Hub
       run: |
         docker-compose -f docker-compose.yml -f docker-compose.build.yml -f docker-compose.build.latest.yml build
-        docker-compose push
+        docker-compose -f docker-compose.yml -f docker-compose.build.yml -f docker-compose.build.latest.yml push
 
     - name: Create Release
       id: create_release
@@ -35,7 +35,7 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${TAG}
-        release_name: Release ${{ github.ref }}
+        tag_name: ${{ env.TAG }}
+        release_name: Release ${{ env.TAG }}
         draft: false
         prerelease: false
