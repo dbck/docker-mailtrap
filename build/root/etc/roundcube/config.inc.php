@@ -1,6 +1,6 @@
 <?php
 $config = array();
-$config['db_dsnw'] = 'sqlite:////var/lib/roundcube/db/sqlite.db';
+$config['db_dsnw'] = 'pgsql://roundcube:roundcube@localhost/roundcube';
 $config['default_host'] = 'localhost';
 $config['smtp_server'] = 'localhost';
 $config['smtp_port'] = 25;

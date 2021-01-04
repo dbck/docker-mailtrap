@@ -1,36 +1,64 @@
-# mailtrap
-transport_maps = hash:/etc/postfix/transport
-luser_relay = ###MAILTRAP_USER###
-local_recipient_maps =
-mailbox_size_limit = ###MAILTRAP_MAILBOX_LIMIT###
-virtual_mailbox_limit = ###MAILTRAP_MAILBOX_LIMIT###
-message_size_limit = ###MAILTRAP_MESSAGE_LIMIT###
-# /mailtrap
+recipient_delimiter = +
+broken_sasl_auth_clients = yes
 
 readme_directory = no
 
-smtp_use_tls                 = yes
-smtp_tls_loglevel            = 1
-smtp_tls_security_level      = may
-smtp_tls_cert_file           = /etc/ssl/certs/ssl-cert-snakeoil.pem
-smtp_tls_key_file            = /etc/ssl/private/ssl-cert-snakeoil.key
+smtp_use_tls = yes
+smtp_tls_loglevel = 1
+smtp_tls_security_level = may
+smtp_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+smtp_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
 smtp_tls_note_starttls_offer = yes
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 smtp_tls_note_starttls_offer = yes
 smtp_tls_CApath = /etc/ssl/certs
 
-smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
-smtpd_use_tls                 = yes
-smtpd_tls_security_level      = may
-smtpd_tls_auth_only           = no
-smtpd_tls_cert_file           = /etc/ssl/certs/ssl-cert-snakeoil.pem
-smtpd_tls_key_file            = /etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_sasl_type = dovecot
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_authenticated_header = yes
+smtpd_sasl_path = private/dovecot-auth
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain = localhost
+
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+## Customized Dovecot and virtual user-specific settings
+canonical_maps = hash:/etc/postfix/canonical
+message_size_limit = ###MAILTRAP_MESSAGE_LIMIT###
+mailbox_size_limit = ###MAILTRAP_MAILBOX_LIMIT###
+virtual_mailbox_limit = ###MAILTRAP_MAILBOX_LIMIT###
+home_mailbox = Maildir/
+#mailbox_command = /usr/lib/dovecot/deliver -m "${EXTENSION}"
+virtual_alias_maps = hash:/etc/postfix/virtual
+virtual_mailbox_domains = hash:/etc/postfix/virtual-mailbox-domains
+virtual_mailbox_maps = hash:/etc/postfix/virtual-mailbox-users
+virtual_transport = lmtp:unix:private/dovecot-lmtp
+mailbox_transport = lmtp:unix:private/dovecot-lmtplmtp
+
+#mydestination = regexp:/etc/postfix/match_all_destination_re
+mydestination = example.com localhost.$mydomain localhost
+#mydestination= static:ALL
+#relay_domains = static:ALL
+mynetworks = 0.0.0.0/0
+smtpd_client_restrictions = permit_mynetworks permit
+smtpd_relay_restrictions = permit_mynetworks permit
+smtpd_sender_restrictions = permit_mynetworks permit
+smtpd_recipient_restrictions = permit_mynetworks defer_unauth_destination permit
+#smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+#smtpd_relay_restrictions = 
+#smtpd_sender_restrictions = 
+#smtpd_recipient_restrictions = permit
+
+smtpd_use_tls = yes
+smtpd_tls_security_level = may
+smtpd_tls_auth_only = no
+smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
 smtpd_tls_session_cache_timeout = 3600s
 smtpd_tls_CApath = /etc/ssl/certs
 tls_random_source = dev:/dev/urandom
 tls_random_prng_update_period = 3600s
 
-alias_maps = hash:/etc/aliases
-alias_database = $alias_maps
 inet_interfaces = all
+compatibility_level = 2

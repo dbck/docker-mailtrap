@@ -1,0 +1,17 @@
+passdb {
+    driver = passwd-file
+    args = username_format=%u scheme=SHA512-CRYPT /etc/dovecot/passwd.db
+    deny = no
+    master = no
+    pass = no
+    skip = never
+    result_failure = continue
+    result_internalfail = continue
+    result_success = return-ok
+}
+
+userdb {
+  driver = static
+  #args = uid=vmail gid=vmail home=/var/mail/vmail/%d/%n
+  args = uid=vmail gid=vmail home=/var/mail/vmail/%n
+}
