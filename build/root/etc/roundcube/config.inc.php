@@ -1,36 +1,20 @@
 <?php
+// Looking for the default values set? See: https://github.com/roundcube/roundcubemail/blob/master/config/defaults.inc.php
 $config = array();
-$config['db_dsnw'] = 'pgsql://roundcube:roundcube@localhost/roundcube';
-$config['default_host'] = 'localhost';
-$config['smtp_server'] = 'localhost';
-$config['smtp_port'] = 25;
-$config['smtp_user'] = '';
-$config['smtp_pass'] = '';
-$config['support_url'] = '';
-$config['product_name'] = 'Roundcube MailTrap';
+$config['product_name'] = 'MailTrap Roundcube';
+$config['db_dsnw'] = 'sqlite:////var/lib/roundcube/db/sqlite.db';
 $config['des_key'] = '###DES_KEY###';
 $config['plugins'] = array(
     'archive',
     'zipdownload',
+    'contextmenu',
+    'keyboard-shortcuts',
+    'message-highlight',
+    'enigma',
+    'emoticons',
 );
-$config['skin'] = 'larry';
-$config['disabled_actions'] = array('addressbook.index','mail.compose','mail.reply','mail.reply-all','mail.forward');
-
-// store draft message is this mailbox
-// leave blank if draft messages should not be stored
-// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
-$config['drafts_mbox'] = '';
-// store spam messages in this mailbox
-// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
-$config['junk_mbox'] = '';
-// store sent message is this mailbox
-// leave blank if sent messages should not be stored
-// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
-$config['sent_mbox'] = '';
-// move messages to this folder when deleting them
-// leave blank if they should be deleted directly
-// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
-$config['trash_mbox'] = '';
-
-// protect the default folders from renames, deletes, and subscription changes
+$config['session_lifetime'] = 1440;
+$config['message_show_email'] = true;
 $config['protect_default_folders'] = true;
+//$config['disabled_actions'] = array('addressbook.index','mail.compose','mail.reply','mail.reply-all','mail.forward');
+$config['skin'] = 'larry';

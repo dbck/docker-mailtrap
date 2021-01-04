@@ -19,7 +19,6 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-
     - name: Prepare tag name
       run: |
         export TAG=$(date +%Y%m%d-%H%M%S)

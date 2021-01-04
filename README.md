@@ -3,13 +3,18 @@
 This image provides a simple catch all email server for development with smtp, imap and webmail support.
 The base image is debian and only default packages are used.
 
-** Only use this image for development purposes, because it is not designed to be secure. **
+** Only use this image for development purposes, because it is not designed to be secure. If it is connectable from the Internet, it can lead to an open relay mail server. **
 
 # Available Services/Ports
 
 * SMTP Unsecure/StartTLS (25), SSL (465), Submission Unsecure/StartTLS (587)
 * IMAP Unsecure/StartTLS (143), SSL (993)
 * HTTP (80) -> Roundcube
+
+# Performance & Improvements
+
+This images uses dovecot as mda with sdbox as storage format, which delivers much more performance and stability than mbox with thousands of received mails.
+Also the image provides StartTLS / SSL with a selfsigned snakeoil certificate.
 
 # Environment variables with default values for customization
 
@@ -21,7 +26,7 @@ The base image is debian and only default packages are used.
 # Simple container start
 
 ```
-docker container run -d --name=mailtrap -p 80:80 -p 25:25 dbck/mailtrap
+docker container run -d --name=mailtrap -p 9080:80 -p 9025:25 -p 9587:587 -p 9465:465 -p 9143:143 -p 9993:993 dbck/mailtrap
 ```
 
 # Example docker-compose configuration

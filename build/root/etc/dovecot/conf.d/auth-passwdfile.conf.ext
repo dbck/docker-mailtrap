@@ -12,6 +12,5 @@ passdb {
 
 userdb {
   driver = static
-  #args = uid=vmail gid=vmail home=/var/mail/vmail/%d/%n
-  args = uid=vmail gid=vmail home=/var/mail/vmail/%n
+  args = uid=vmail gid=vmail home=/var/mail/vmail/%d/%n
 }
