@@ -19,7 +19,7 @@ Also the image provides StartTLS / SSL with a selfsigned snakeoil certificate.
 # Environment variables with default values for customization
 
 * MAILTRAP_USER=mailtrap
-* MAILTRAP_PASSWD=mailtrap
+* MAILTRAP_PASSWORD=mailtrap
 * MAILTRAP_MAILBOX_LIMIT=51200000
 * MAILTRAP_MESSAGE_LIMIT=10240000
 
@@ -61,7 +61,7 @@ exit
 ```
 export TAG=$(date +%Y%m%d-%H%M%S)
 docker-compose -f docker-compose.yml -f docker-compose.build.yml -f docker-compose.build.latest.yml build
-docker-compose push
+docker-compose -f docker-compose.yml -f docker-compose.build.yml -f docker-compose.build.latest.yml push
 ```
 
 ## Test image
