@@ -1,7 +1,7 @@
 version: "3"
 services:
   latest:
-    image: ${IMAGE_NAMESPACE}/${IMAGE_NAME}:${TAG}
+    image: ${IMAGE_NAMESPACE}/${IMAGE_NAME}:latest
     build:
       context: ./build
       args:
