@@ -1,8 +1,6 @@
 # Purpose
 
-This image provides a simple catch all email server for development with smtp, imap and webmail support. The base image is debian and only default packages are used.
-
-** Only use this image for development purposes, because it is not designed to be secure. If it is connectable from the Internet, it can lead to an open relay mail server. **
+This image provides a simple catch all email server for development with smtp, imap and webmail support. The base image is debian and only default packages are used. **Only use this image for development purposes, because it is not designed to be secure. If it is connectable from the Internet, it can lead to an open relay mail server.**
 
 # Inspired by
 
@@ -21,7 +19,7 @@ This images uses dovecot as mda with sdbox as storage format, which delivers muc
 # Environment variables with default values for customization
 
 * `MAILTRAP_USER=mailtrap`
-* `MAILTRAP_PASSWORD=mailtrap
+* `MAILTRAP_PASSWORD=mailtrap`
 * `MAILTRAP_MAILBOX_LIMIT=51200000`
 * `MAILTRAP_MESSAGE_LIMIT=10240000`
 
@@ -50,7 +48,7 @@ docker logs -f mailtrap
 
 ## Example docker-compose configuration
 
-Please look at [docker-compose.example.yml](docker-compose.example.yml)
+Please look at [docker-compose.example.yml](https://github.com/dbck/docker-mailtrap/blob/main/docker-compose.example.yml)
 
 # Send test mail while container is running
 
