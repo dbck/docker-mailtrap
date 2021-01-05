@@ -12,20 +12,23 @@ This images uses dovecot as mda with sdbox as storage format, which delivers muc
 
 # Available Services/Ports
 
-* SMTP Unsecure/StartTLS (25), SSL (465), Submission Unsecure/StartTLS (587)
+* SMTP Unsecure/StartTLS (25), SSL (465)
+* Submission Unsecure/StartTLS (587)
 * IMAP Unsecure/StartTLS (143), SSL (993)
-* HTTP (80) -> Roundcube
+* HTTP (80) -> Webmail/Roundcube
 
 # Environment variables with default values for customization
 
-* `MAILTRAP_USER=mailtrap`
-* `MAILTRAP_PASSWORD=mailtrap`
-* `MAILTRAP_MAILBOX_LIMIT=51200000`
-* `MAILTRAP_MESSAGE_LIMIT=10240000`
+```
+MAILTRAP_USER=mailtrap
+MAILTRAP_PASSWORD=mailtrap
+MAILTRAP_MAILBOX_LIMIT=51200000
+MAILTRAP_MESSAGE_LIMIT=10240000
+```
 
 # Starting a container
 
-**Note:** The examples use the flag `--rm` to automatically remove the container instance, when stopped. The flag `--init` is required to speed up the shutdown of the container. Also the ports are bound to localhost.
+**Note:** The examples use the flag `--rm` to automatically remove the container instance, when stopped. The flag `--init is required to speed up the shutdown of the container. Also the ports are bound to localhost.
 
 ## Simple container start
 
