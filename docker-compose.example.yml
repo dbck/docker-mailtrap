@@ -2,14 +2,15 @@ version: "3"
 services:
   mailtrap:
     image: dbck/mailtrap:latest
+    init: true
     environment:
       - TZ=Europe/Berlin
       - MAILTRAP_USER=username
-      - MAILTRAP_PASSWD=password
+      - MAILTRAP_PASSWORD=password
     ports:
-      - "9025:25"
-      - "9465:465"
-      - "9587:587"
-      - "9143:143"
-      - "9993:993"
-      - "9080:80"
+      - "127.0.0.1:9025:25"
+      - "127.0.0.1:9465:465"
+      - "127.0.0.1:9587:587"
+      - "127.0.0.1:9143:143"
+      - "127.0.0.1:9993:993"
+      - "127.0.0.1:9080:80"

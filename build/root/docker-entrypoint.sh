@@ -35,4 +35,4 @@ mkdir -p /run/php
 service php7.3-fpm start
 service nginx start
 
-touch /var/log/mail.err && tail -f /var/log/mail.err
+touch /var/log/mail.err && tail -f /var/log/mail.err /var/log/mail.log
