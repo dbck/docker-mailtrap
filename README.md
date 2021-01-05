@@ -74,28 +74,26 @@ telnet mailtrap 25
 exit
 ```
 
-# Build, test and deploy container image
+# Development
 
-## Build image
+## Build, develop and test image
+
+```
+export TAG=dev && docker-compose -f docker-compose.yml -f docker-compose.build.yml build && docker-compose up -d && docker-compose logs -f
+```
+
+```
+export TAG=dev && docker-compose up
+```
+
+```
+export TAG=dev && docker-compose down
+```
+
+## Build and push container image
 
 ```
 export TAG=$(date +%Y%m%d-%H%M%S)
 docker-compose -f docker-compose.yml -f docker-compose.build.yml -f docker-compose.build.latest.yml build
 docker-compose -f docker-compose.yml -f docker-compose.build.yml -f docker-compose.build.latest.yml push
-```
-
-## Test image
-
-```
-docker-compose up
-```
-
-```
-docker-compose down
-```
-
-## Build and test
-
-```
-export TAG=dev && docker-compose -f docker-compose.yml -f docker-compose.build.yml build && docker-compose up -d && docker-compose logs -f
 ```
