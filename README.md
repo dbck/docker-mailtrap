@@ -25,7 +25,7 @@ This images uses dovecot as mda with sdbox as storage format, which delivers muc
 
 # Starting a container
 
-**Note:** The examples use the flag `--rm` to automatically remove the container instance, when stopped. The flag `--init is required to speed up the shutdown of the container. Also the ports are bound to localhost.
+**Note:** The examples use the flag `--rm` to automatically remove the container instance, when stopped. The flag `--init` is required to speed up the shutdown of the container. Also the ports are bound to localhost.
 
 ## Simple container start
 
