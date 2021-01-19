@@ -16,7 +16,7 @@ This images uses dovecot as mda with sdbox as storage format, which delivers muc
 * Submission Unsecure/StartTLS (587)
 * IMAP Unsecure/StartTLS (143), SSL (993)
 * HTTP (80) -> Webmail [Roundcube](https://roundcube.net/)
-  * /api/inbox -> Inbox messages as simple json objects.
+  * `/api/inbox` -> Inbox messages as simple json objects.
 
 # Environment variables with default values for customization
 
@@ -57,7 +57,7 @@ Please look at [docker-compose.example.yml](https://github.com/dbck/docker-mailt
 
 # JSON API
 
-The container provides a simple API under /api/inbox which returns a rudimentary view of messages received in the inbox.
+The container provides a simple API under `/api/inbox` which returns a rudimentary view of messages received in the inbox. By calling `/api/inbox?flush=true` the received messages in the inbox will be flushed, after retrieval of the inbox as json.
 
 ```
 [

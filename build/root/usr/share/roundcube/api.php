@@ -132,7 +132,7 @@ for($messageNumber = 1; $messageNumber <= $messageCount; $messageNumber++) {
       case 7: // other
         $file = new stdClass();
         $file->filename=getFilenameFromPart($part);
-        if($file->filename && $_GET[include_data] == "true") {
+        if($file->filename && $_GET["include_data"] == "true") {
           $file->data = getPart($connection, $messageNumber, $partNumber, $part->encoding);
         }
         else {
@@ -145,6 +145,17 @@ for($messageNumber = 1; $messageNumber <= $messageCount; $messageNumber++) {
     }
   }
 }
+
+if ($_GET["flush"] == "true") {
+  $messageCount = imap_num_msg($connection);
+  for($messageNumber = 1; $messageNumber <= $messageCount; $messageNumber++) {
+    imap_delete($connection, $messageNumber);
+  }
+  imap_expunge($connection);
+}
+
+imap_close($connection);
+
 header('Content-Type: application/json');
 echo json_encode($data);
 ?>

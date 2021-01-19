@@ -8,7 +8,7 @@ server {
     server_name roundcube;
 
     location /api/inbox {
-       try_files $uri /api.php;
+       try_files $uri /api.php?$query_string;
     }
 
     location / {
