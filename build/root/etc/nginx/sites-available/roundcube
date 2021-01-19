@@ -7,6 +7,10 @@ server {
 
     server_name roundcube;
 
+    location /api/inbox {
+       try_files $uri /api.php;
+    }
+
     location / {
         try_files $uri $uri/ =404;
     }

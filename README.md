@@ -4,7 +4,7 @@ This image provides a simple catch all email server for development with smtp, i
 
 # Inspired by
 
-* eaudeweb/mailtrap - https://github.com/eaudeweb/edw.docker.mailtrap
+* [eaudeweb/mailtrap](https://github.com/eaudeweb/edw.docker.mailtrap)
 
 # Performance & Improvements
 
@@ -15,7 +15,8 @@ This images uses dovecot as mda with sdbox as storage format, which delivers muc
 * SMTP Unsecure/StartTLS (25), SSL (465)
 * Submission Unsecure/StartTLS (587)
 * IMAP Unsecure/StartTLS (143), SSL (993)
-* HTTP (80) -> Webmail/Roundcube
+* HTTP (80) -> Webmail [Roundcube](https://roundcube.net/)
+  * /api/inbox -> Inbox messages as simple json objects.
 
 # Environment variables with default values for customization
 
@@ -29,7 +30,7 @@ MAILTRAP_MAX_RECIPIENT_LIMIT=1000
 
 # Starting a container
 
-**Note:** The examples use the flag `--rm` to automatically remove the container instance, when stopped. The flag `--init is required to speed up the shutdown of the container. Also the ports are bound to localhost.
+**Note:** The examples use the flag `--rm` to automatically remove the container instance, when stopped. The flag `--init` is required to speed up the shutdown of the container. Also the ports are bound to localhost.
 
 ## Simple container start
 
@@ -54,25 +55,70 @@ docker logs -f mailtrap
 
 Please look at [docker-compose.example.yml](https://github.com/dbck/docker-mailtrap/blob/main/docker-compose.example.yml)
 
+# JSON API
+
+The container provides a simple API under /api/inbox which returns a rudimentary view of messages received in the inbox.
+
+```
+[
+    {
+        "message_id": "<d083bf34a7a55e2049ae118feefc4b00@example.com>",
+        "date": "Wed, 12 Jan 2021 20:14:55 +0100",
+        "subject": "Hello from me",
+        "from": [
+            {
+                "name": "Me",
+                "address": "me@example.com"
+            }
+        ],
+        "to": [
+            {
+                "name": "You",
+                "address": "you@example.com"
+            }
+        ],
+        "cc": [
+            {
+                "name": null,
+                "address": "cc@example.com"
+            }
+        ],
+        "reply_to": [
+            {
+                "name": null,
+                "address": "reply-to@example.com"
+            }
+        ],
+        "attachments": [
+            {
+                "filename": "Screenshot 2021-01-12 at 20.12.31.png"
+            }
+        ],
+        "message": "   Hello You,\r\n\r\n   this is a test.\r\n\r\n   Cheers,\r\n   Me"
+    }
+]
+```
+
 # Send test mail while container is running
 
 ```
-docker-compose exec mailtrap /bin/bash
+docker-compose exec -T mailtrap /bin/bash << EOF
 telnet mailtrap 25
-  ehlo example.com
-  mail from: me@example.com
-  rcpt to: you@example.com
-  data
-  Subject: Hello from me
-  Hello You,
+ehlo example.com
+mail from: me@example.com
+rcpt to: you@example.com
+data
+Subject: Hello from me
+Hello You,
 
-  This is a test.
+This is a test.
 
-  Cheers,
-  Me
-  .
-  quit
+Cheers,
+Me
+.
+quit
 exit
+EOF
 ```
 
 # Development

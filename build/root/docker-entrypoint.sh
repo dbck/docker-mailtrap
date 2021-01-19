@@ -23,6 +23,10 @@ sed -i "s/###MAILTRAP_MAX_RECIPIENT_LIMIT###/$MAILTRAP_MAX_RECIPIENT_LIMIT/" /et
 sed -i "s/#submission inet n       -       y       -       -       smtpd/submission inet n       -       y       -       -       smtpd/" /etc/postfix/master.cf
 echo -e "dovecot unix - n n - - pipe flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/deliver -f \${sender} -d ${MAILTRAP_USER}" >> /etc/postfix/master.cf
 
+# Configure api php-script
+sed -i "s/###MAILTRAP_USER###/$MAILTRAP_USER/" /usr/share/roundcube/api.php
+sed -i "s/###MAILTRAP_PASSWORD###/$MAILTRAP_PASSWORD/" /usr/share/roundcube/api.php
+
 # Generate aliases and transport map
 newaliases
 postmap /etc/postfix/transport

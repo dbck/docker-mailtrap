@@ -58,6 +58,9 @@ RUN mkdir -p /var/lib/roundcube/db && \
     chmod 775 -R /var/lib/roundcube/db && \
     chown -R www-data:www-data /var/lib/roundcube/db
 
+# API
+COPY root/usr/share/roundcube/api.php /usr/share/roundcube/
+
 COPY root/docker-entrypoint.sh /
 RUN chmod 777 /docker-entrypoint.sh
 
