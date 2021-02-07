@@ -1,0 +1,35 @@
+name: Build image [arm64]
+
+on:
+  push:
+    branches:
+      - '*'         # matches every branch that doesn't contain a '/'
+      - '*/*'       # matches every branch containing a single '/'
+      - '**'        # matches every branch
+      - '!release'  # excludes release branch
+#  schedule:
+#    - cron: "0 20 1 * *"
+
+jobs:
+  build:
+    name: Build docker image
+    runs-on: [ self-hosted, Linux, ARM64 ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Prepare tag name
+      run: |
+        export TAG=$(date +%Y%m%d-%H%M%S)
+        echo "TAG=${TAG}" >> $GITHUB_ENV
+
+    - name: Build to Docker Hub
+      run: |
+        docker-compose -f docker-compose.yml -f docker-compose.build.yml build
