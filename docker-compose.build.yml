@@ -1,8 +1,0 @@
-version: "3"
-services:
-  mailtrap:
-    image: ${IMAGE_NAMESPACE}/${IMAGE_NAME}:${TAG}
-    build:
-      context: ./build
-      args:
-        - FROM_IMAGE=${FROM_IMAGE}

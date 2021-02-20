@@ -1,3 +1,15 @@
 version: "3"
 services:
   mailtrap:
+    image: dbck/mailtrap:${TAG}
+    build:
+      context: ./build
+    environment:
+      - TZ=Europe/Berlin
+    ports:
+      - "9025:25"
+      - "9465:465"
+      - "9587:587"
+      - "9143:143"
+      - "9993:993"
+      - "9080:80"

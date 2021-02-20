@@ -1,5 +1,4 @@
-ARG FROM_IMAGE
-FROM $FROM_IMAGE
+FROM debian:10.7
 
 LABEL maintainer "Dennis Boeckmann <dev@dbck.de>"
 LABEL description "Debian based simple mailtrap container for development purposes"
