@@ -4,10 +4,15 @@ Please send a pull request.
 
 # Development
 
+```
+docker build -t="dbck/mailtrap:dev" build/
+docker container run --rm -it dbck/mailtrap:dev
+```
+
 ## Build, develop and test image
 
 ```
-export TAG=dev && docker-compose -f docker-compose.yml -f docker-compose.build.yml build && docker-compose up -d && docker-compose logs -f
+export TAG=dev && docker-compose build && docker-compose up -d && docker-compose logs -f
 ```
 
 ```
@@ -22,6 +27,6 @@ export TAG=dev && docker-compose down
 
 ```
 export TAG=$(date +%Y%m%d-%H%M%S)
-docker-compose -f docker-compose.yml -f docker-compose.build.yml -f docker-compose.build.latest.yml build
-docker-compose -f docker-compose.yml -f docker-compose.build.yml -f docker-compose.build.latest.yml push
+docker-compose build
+docker-compose push
 ```
