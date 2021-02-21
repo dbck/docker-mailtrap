@@ -27,6 +27,31 @@ export TAG=dev && docker-compose down
 
 ```
 export TAG=$(date +%Y%m%d-%H%M%S)
+docker build -t="dbck/mailtrap:${TAG}" build/
+docker container run --rm -it dbck/mailtrap:${TAG}
+docker push dbck/mailtrap:${TAG}
+```
+
+```
+export TAG=$(date +%Y%m%d-%H%M%S)
 docker-compose build
 docker-compose push
+```
+
+# Build image and create a release
+
+## With message
+
+```
+git checkout main
+git tag -a v1.0.0 -m "Some text"
+git push origin v1.0.0
+```
+
+## Without message
+
+```
+git checkout main
+git tag v1.0.0
+git push origin v1.0.0
 ```
