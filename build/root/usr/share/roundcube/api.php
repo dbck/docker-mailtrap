@@ -114,7 +114,11 @@ for($messageNumber = 1; $messageNumber <= $messageCount; $messageNumber++) {
   $mail->attachments=array();
   array_push($data,$mail);
   $structure = imap_fetchstructure($connection, $messageNumber);
-  $flattenedParts = flattenParts($structure->parts);
+  if(isset($structure->parts)) {
+    $flattenedParts = self::flattenParts($structure->parts);
+  } else {
+    $flattenedParts['1'] = $structure;
+  }
   foreach($flattenedParts as $partNumber => $part) {
     switch($part->type) {
       case 0:
