@@ -10,6 +10,7 @@ RUN apt-get update \
     sudo \
     vim \
     wget \
+    curl \
     telnet \
     ssl-cert \
     nginx \
