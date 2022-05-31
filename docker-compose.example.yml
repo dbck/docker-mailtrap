@@ -7,6 +7,8 @@ services:
       - TZ=Europe/Berlin
       - MAILTRAP_USER=username
       - MAILTRAP_PASSWORD=password
+    volumes:
+      - maildata:/var/mail
     ports:
       - "127.0.0.1:9025:25"
       - "127.0.0.1:9465:465"
@@ -14,3 +16,5 @@ services:
       - "127.0.0.1:9143:143"
       - "127.0.0.1:9993:993"
       - "127.0.0.1:9080:80"
+volumes:
+  maildata:
