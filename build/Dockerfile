@@ -1,7 +1,7 @@
 FROM debian:10.7
 
-LABEL maintainer "Dennis Boeckmann <dev@dbck.de>"
-LABEL description "Debian based simple mailtrap container for development purposes"
+LABEL maintainer="Dennis Boeckmann <dev@dbck.de>"
+LABEL description="Debian based simple mailtrap container for development purposes"
 
 ENV DEBIAN_FRONTEND noninteractive
 
