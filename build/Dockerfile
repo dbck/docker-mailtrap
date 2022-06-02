@@ -1,4 +1,4 @@
-FROM debian:10.7
+FROM debian:bullseye-slim
 
 LABEL maintainer="Dennis Boeckmann <dev@dbck.de>"
 LABEL description="Debian based simple mailtrap container for development purposes"
@@ -6,23 +6,20 @@ LABEL description="Debian based simple mailtrap container for development purpos
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-    && apt-get -q -y install \
-    sudo \
-    vim \
-    wget \
+    && apt-get -q -y --no-install-recommends install \
     curl \
     telnet \
     ssl-cert \
     nginx \
     postfix \
     dovecot-imapd \
-    sqlite \
+    sqlite3 \
     php \
     php-fpm \
     php-mbstring \
     php-sqlite3 \
-    php7.3-imap \
-    php7.3-zip \
+    php-imap \
+    php-zip \
     php-pear \
     roundcube \
     roundcube-sqlite3 \
