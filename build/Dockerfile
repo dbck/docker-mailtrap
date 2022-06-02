@@ -8,25 +8,24 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get -q -y --no-install-recommends install \
     curl \
-    telnet \
-    ssl-cert \
-    nginx \
-    postfix \
     dovecot-imapd \
-    sqlite3 \
+    nginx \
     php \
     php-fpm \
-    php-mbstring \
-    php-sqlite3 \
     php-imap \
-    php-zip \
+    php-mbstring \
     php-pear \
+    php-sqlite3 \
+    php-zip \
+    postfix \
     roundcube \
-    roundcube-sqlite3 \
     roundcube-plugins \
     roundcube-plugins-extra \
+    roundcube-sqlite3 \
     rsyslog \
-    && rm -rf /var/lib/apt/lists/*
+    sqlite3 \
+    ssl-cert \
+    telnet \
 
 ENV MAILTRAP_USER mailtrap
 ENV MAILTRAP_PASSWORD mailtrap
