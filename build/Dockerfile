@@ -37,6 +37,9 @@ ENV MAILTRAP_MAILBOX_LIMIT 51200000
 ENV MAILTRAP_MESSAGE_LIMIT 10240000
 ENV MAILTRAP_MAX_RECIPIENT_LIMIT 1000
 
+# Avoid kernel logging
+RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
+
 # Postfix
 COPY root/etc/postfix/* /etc/postfix/
 
