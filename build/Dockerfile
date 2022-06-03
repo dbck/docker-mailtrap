@@ -26,6 +26,7 @@ RUN apt-get update \
     sqlite3 \
     ssl-cert \
     telnet \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV MAILTRAP_USER mailtrap
 ENV MAILTRAP_PASSWORD mailtrap
