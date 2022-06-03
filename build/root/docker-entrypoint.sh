@@ -35,8 +35,7 @@ postmap /etc/postfix/transport
 service rsyslog start
 service dovecot start
 service postfix start
-mkdir -p /run/php
-service php7.3-fpm start
+service php7.4-fpm start
 service nginx start
 
 touch /var/log/mail.err && tail -f /var/log/mail.err /var/log/mail.log

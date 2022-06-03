@@ -1,41 +1,40 @@
-FROM debian:10.7
+FROM debian:bullseye-slim
 
-LABEL maintainer "Dennis Boeckmann <dev@dbck.de>"
-LABEL description "Debian based simple mailtrap container for development purposes"
+LABEL maintainer="Dennis Boeckmann <dev@dbck.de>"
+LABEL description="Debian based simple mailtrap container for development purposes"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-    && apt-get -q -y install \
-    sudo \
-    vim \
-    wget \
+    && apt-get -q -y --no-install-recommends install \
     curl \
-    telnet \
-    ssl-cert \
-    nginx \
-    postfix \
     dovecot-imapd \
-    sqlite \
+    nginx \
     php \
     php-fpm \
+    php-imap \
     php-mbstring \
-    php-sqlite3 \
-    php7.3-imap \
-    php7.3-zip \
     php-pear \
+    php-sqlite3 \
+    php-zip \
+    postfix \
     roundcube \
-    roundcube-sqlite3 \
     roundcube-plugins \
     roundcube-plugins-extra \
+    roundcube-sqlite3 \
     rsyslog \
-    && rm -rf /var/lib/apt/lists/*
+    sqlite3 \
+    ssl-cert \
+    telnet \
 
 ENV MAILTRAP_USER mailtrap
 ENV MAILTRAP_PASSWORD mailtrap
 ENV MAILTRAP_MAILBOX_LIMIT 51200000
 ENV MAILTRAP_MESSAGE_LIMIT 10240000
 ENV MAILTRAP_MAX_RECIPIENT_LIMIT 1000
+
+# Avoid kernel logging
+RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 
 # Postfix
 COPY root/etc/postfix/* /etc/postfix/
