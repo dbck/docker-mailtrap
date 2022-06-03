@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 === Changed
 
-- Upgraded docker base image to debian buster slim which reduces the image size. Thanks to @kevinversteeg. (https://github.com/dbck/docker-mailtrap/pull/5[#5])
+- Upgraded docker base image to debian bullseye slim which reduces the image size. Thanks to @kevinversteeg. (https://github.com/dbck/docker-mailtrap/pull/5[#5])
 - Refactored config array to modern notation. Thanks to @kevinversteeg. (https://github.com/dbck/docker-mailtrap/pull/5[#5])
 - Fixed permission denied error for imklog. Thanks to @kevinversteeg. (https://github.com/dbck/docker-mailtrap/pull/5[#5])
 - Cleanup of packages and fixing of labels in Dockerfile. Thanks to @kevinversteeg. (https://github.com/dbck/docker-mailtrap/pull/5[#5])
