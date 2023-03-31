@@ -3,6 +3,7 @@
 name: Build image
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - '*'         # matches every branch that doesn't contain a '/'
@@ -10,8 +11,8 @@ on:
       - '**'        # matches every branch
     tags:
       - "v*.*.*"
-    schedule:
-      - cron: "0 22 * * *"
+#    schedule:
+#      - cron: "0 22 * * *"
 
 jobs:
   build:
