@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 LABEL maintainer="Dennis Boeckmann <dev@dbck.de>"
 LABEL description="Debian based simple mailtrap container for development purposes"

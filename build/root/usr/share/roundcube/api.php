@@ -61,7 +61,7 @@ function getFilenameFromPart($part) {
   return $filename;
 }
 $data=array();
-$server="{localhost:143/novalidate-cert}";
+$server="{localhost:993/ssl/novalidate-cert}";
 $login="###MAILTRAP_USER###";
 $password="###MAILTRAP_PASSWORD###";
 $connection = imap_open($server, $login, $password);

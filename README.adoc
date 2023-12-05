@@ -102,7 +102,7 @@ The container provides a simple API under `/api/inbox` which returns a rudimenta
 # Send test mail while container is running
 
 ```
-docker-compose exec -T mailtrap /bin/bash << EOF
+docker-compose exec mailtrap /bin/bash
 telnet mailtrap 25
 ehlo example.com
 mail from: me@example.com
@@ -118,7 +118,6 @@ Me
 .
 quit
 exit
-EOF
 ```
 
 # License
