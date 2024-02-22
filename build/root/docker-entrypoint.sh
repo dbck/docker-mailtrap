@@ -1,4 +1,21 @@
 #!/usr/bin/env bash
+set -e
+
+# ln_if_file_exists src dest
+function ln_if_file_exists () {
+    if [ -e "$1" ]; then
+        ln -sf "$1" "$2"
+    fi
+}
+
+# Symlink logfiles
+ln_if_file_exists "/dev/null" "/var/log/mail.err"
+ln_if_file_exists "/dev/null" "/var/log/mail.info"
+ln_if_file_exists "/dev/null" "/var/log/mail.log"
+ln_if_file_exists "/dev/null" "/var/log/mail.warn"
+#ln_if_file_exists "/dev/null" "/var/log/auth.log"
+ln_if_file_exists "/proc/1/fd/1" "/var/log/auth.log"
+ln_if_file_exists "/proc/1/fd/1" "/var/log/syslog"
 
 # Setup roundcube des_key
 RC_DES_KEY=`cat /dev/urandom | head -n 256 | sha256sum | awk '{print $1}'`;
@@ -38,10 +55,4 @@ newaliases
 postmap /etc/postfix/transport
 
 # Start services
-service rsyslog start
-service dovecot start
-service postfix start
-service php8.2-fpm start
-service nginx start
-
-touch /var/log/mail.err /var/log/mail.log && tail -f /var/log/mail.err /var/log/mail.log
+/usr/bin/supervisord

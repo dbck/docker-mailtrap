@@ -2,7 +2,6 @@ version: "3"
 services:
   mailtrap:
     image: dbck/mailtrap:latest
-    init: true
     environment:
       - TZ=Europe/Berlin
       - MAILTRAP_USER=username

@@ -26,6 +26,7 @@ RUN apt-get update \
     sqlite3 \
     ssl-cert \
     telnet \
+    supervisor \
     && rm -rf /var/lib/apt/lists/*
 
 ENV MAILTRAP_USER mailtrap
@@ -61,6 +62,9 @@ RUN mkdir -p /var/lib/roundcube/db && \
 
 # API
 COPY root/usr/share/roundcube/api.php /usr/share/roundcube/
+
+# Supervisord
+COPY root/etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY root/docker-entrypoint.sh /
 RUN chmod 777 /docker-entrypoint.sh
