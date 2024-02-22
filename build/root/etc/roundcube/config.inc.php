@@ -19,5 +19,6 @@ $config = [
     'session_lifetime'        => 1440,
     'message_show_email'      => true,
     'protect_default_folders' => true,
+    'request_path'            => ###MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH###,
     'skin'                    => 'elastic',
 ];

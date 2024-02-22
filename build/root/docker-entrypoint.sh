@@ -3,6 +3,12 @@
 # Setup roundcube des_key
 RC_DES_KEY=`cat /dev/urandom | head -n 256 | sha256sum | awk '{print $1}'`;
 sed -i "s/###DES_KEY###/$RC_DES_KEY/" /etc/roundcube/config.inc.php
+# Configure proxy path for use behind a reverse proxy
+if [ -z ${MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH} ];then
+  sed -i "s|###MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH###|null|" /etc/roundcube/config.inc.php  
+else
+  sed -i "s|###MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH###|'$MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH'|" /etc/roundcube/config.inc.php
+fi
 
 # generate new certificate
 make-ssl-cert generate-default-snakeoil --force-overwrite
