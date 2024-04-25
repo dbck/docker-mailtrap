@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 // Looking for the default values set? See: https://github.com/roundcube/roundcubemail/blob/master/config/defaults.inc.php
 $config = [
-    'product_name'            => 'MailTrap Roundcube',
+    'product_name'            => '###MAILTRAP_ROUNDCUBE_NAME###',
     'db_dsnw'                 => 'sqlite:////var/lib/roundcube/db/sqlite.db',
     'des_key'                 => '###DES_KEY###',
     'plugins'                 => [
