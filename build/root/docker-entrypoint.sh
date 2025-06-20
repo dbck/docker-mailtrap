@@ -44,6 +44,20 @@ sed -i "s/###MAILTRAP_MAILBOX_LIMIT###/$MAILTRAP_MAILBOX_LIMIT/" /etc/postfix/ma
 sed -i "s/###MAILTRAP_MESSAGE_LIMIT###/$MAILTRAP_MESSAGE_LIMIT/" /etc/postfix/main.cf
 sed -i "s/###MAILTRAP_MAX_RECIPIENT_LIMIT###/$MAILTRAP_MAX_RECIPIENT_LIMIT/" /etc/postfix/main.cf
 
+# Set allowed domains restriction if MAILTRAP_ALLOWED_DOMAINS is set
+if [ -n "$MAILTRAP_ALLOWED_DOMAINS" ]; then
+  # Support comma, semicolon, or space as delimiters
+  ALLOWED_DOMAINS=$(echo "$MAILTRAP_ALLOWED_DOMAINS" | tr ',;' '  ')
+  echo "# Auto-generated allowed domains map" > /etc/postfix/allowed_domains
+  for domain in $ALLOWED_DOMAINS; do
+    echo "$domain OK" >> /etc/postfix/allowed_domains
+  done
+  postmap /etc/postfix/allowed_domains
+  sed -i "s|###MAILTRAP_ALLOWED_DOMAINS_RESTRICTION###|check_recipient_access hash:/etc/postfix/allowed_domains|" /etc/postfix/main.cf
+else
+  sed -i "s|###MAILTRAP_ALLOWED_DOMAINS_RESTRICTION###||" /etc/postfix/main.cf
+fi
+
 # Configure services and transports in master.cf
 sed -i "s/#submission inet n       -       y       -       -       smtpd/submission inet n       -       y       -       -       smtpd/" /etc/postfix/master.cf
 echo -e "dovecot unix - n n - - pipe flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/deliver -f \${sender} -d ${MAILTRAP_USER}" >> /etc/postfix/master.cf

@@ -30,6 +30,38 @@ MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH=""
 MAILTRAP_ROUNDCUBE_NAME="MailTrap Roundcube"
 ```
 
+# Domain Filtering (Optional)
+
+By default, this image accepts mail for any domain (open relay, for development/honeypot use only).
+
+You can restrict accepted recipient domains by setting the `MAILTRAP_ALLOWED_DOMAINS` environment variable. If not set, the server will accept mail for all domains (default behavior).
+
+- To allow a single domain:
+
+```
+docker run -d --rm --init --name=mailtrap \
+  -e MAILTRAP_ALLOWED_DOMAINS=example.com \
+  -p 127.0.0.1:9080:80 -p 127.0.0.1:9025:25 dbck/mailtrap
+```
+
+- To allow multiple domains (comma, semicolon, or space separated):
+
+```
+docker run -d --rm --init --name=mailtrap \
+  -e MAILTRAP_ALLOWED_DOMAINS="example.com,another.com" \
+  -p 127.0.0.1:9080:80 -p 127.0.0.1:9025:25 dbck/mailtrap
+```
+
+or
+
+```
+docker run -d --rm --init --name=mailtrap \
+  -e MAILTRAP_ALLOWED_DOMAINS="example.com another.com" \
+  -p 127.0.0.1:9080:80 -p 127.0.0.1:9025:25 dbck/mailtrap
+```
+
+If a message is sent to a domain not in the allowed list, it will be rejected with a standard SMTP relay error ("Relay access denied").
+
 # Starting a container
 
 **Note:** The examples use the flag `--rm` to automatically remove the container instance, when stopped. The flag `--init` is required to speed up the shutdown of the container. Also the ports are bound to localhost.
