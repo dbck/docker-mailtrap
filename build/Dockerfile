@@ -12,7 +12,6 @@ RUN apt-get update \
     nginx \
     php \
     php-fpm \
-    php-imap \
     php-mbstring \
     php-pear \
     php-sqlite3 \
@@ -60,9 +59,6 @@ RUN mkdir -p /var/lib/roundcube/db && \
     sqlite3 -init /usr/share/roundcube/SQL/sqlite.initial.sql /var/lib/roundcube/db/sqlite.db && \
     chmod 775 -R /var/lib/roundcube/db && \
     chown -R www-data:www-data /var/lib/roundcube/db
-
-# API
-COPY root/usr/share/roundcube/api.php /usr/share/roundcube/
 
 # Supervisord
 COPY root/etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf

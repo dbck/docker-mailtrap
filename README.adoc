@@ -16,7 +16,6 @@ This images uses dovecot as mda with sdbox as storage format, which delivers muc
 * Submission Unsecure/StartTLS (587)
 * IMAP Unsecure/StartTLS (143), SSL (993)
 * HTTP (80) -> Webmail link:https://roundcube.net/[Roundcube]
-  * `/api/inbox` -> Inbox messages as simple json objects.
 
 # Environment variables with default values for customization
 
@@ -55,51 +54,7 @@ docker logs -f mailtrap
 
 ## Example docker compose configuration
 
-Please look at link:https://github.com/dbck/docker-mailtrap/blob/main/docker compose.example.yml[docker compose.example.yml]
-
-# JSON API
-
-The container provides a simple API under `/api/inbox` which returns a rudimentary view of messages received in the inbox. By calling `/api/inbox?flush=true` the received messages in the inbox will be flushed, after retrieval of the inbox as json.
-
-```
-[
-    {
-        "message_id": "<d083bf34a7a55e2049ae118feefc4b00@example.com>",
-        "date": "Wed, 12 Jan 2021 20:14:55 +0100",
-        "subject": "Hello from me",
-        "from": [
-            {
-                "name": "Me",
-                "address": "me@example.com"
-            }
-        ],
-        "to": [
-            {
-                "name": "You",
-                "address": "you@example.com"
-            }
-        ],
-        "cc": [
-            {
-                "name": null,
-                "address": "cc@example.com"
-            }
-        ],
-        "reply_to": [
-            {
-                "name": null,
-                "address": "reply-to@example.com"
-            }
-        ],
-        "attachments": [
-            {
-                "filename": "Screenshot 2021-01-12 at 20.12.31.png"
-            }
-        ],
-        "message": "   Hello You,\r\n\r\n   this is a test.\r\n\r\n   Cheers,\r\n   Me"
-    }
-]
-```
+Please look at link:https://github.com/dbck/docker-mailtrap/blob/main/compose.example.yaml[compose.example.yaml]
 
 # Send test mail while container is running
 
