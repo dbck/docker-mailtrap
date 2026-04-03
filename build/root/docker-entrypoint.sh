@@ -21,10 +21,12 @@ ln_if_file_exists "/proc/1/fd/1" "/var/log/syslog"
 RC_DES_KEY=`cat /dev/urandom | head -n 256 | sha256sum | awk '{print $1}'`;
 sed -i "s/###DES_KEY###/$RC_DES_KEY/" /etc/roundcube/config.inc.php
 # Configure proxy path for use behind a reverse proxy
-if [ -z ${MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH} ];then
+if [[ -z ${MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH} || ${MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH} == '/' ]];then
   sed -i "s|###MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH###|null|" /etc/roundcube/config.inc.php
+  sed -i "s|###MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH###|/roundcube|" /etc/nginx/sites-available/roundcube
 else
   sed -i "s|###MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH###|'$MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH'|" /etc/roundcube/config.inc.php
+  sed -i "s|###MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH###|$MAILTRAP_ROUNDCUBE_CONFIG_REQUEST_PATH|" /etc/nginx/sites-available/roundcube
 fi
 # Configure roundcube name
 sed -i "s/###MAILTRAP_ROUNDCUBE_NAME###/$MAILTRAP_ROUNDCUBE_NAME/" /etc/roundcube/config.inc.php
