@@ -53,9 +53,9 @@ docker container run -d --rm --init --name=mailtrap -p 127.0.0.1:9080:80 -p 127.
 docker logs -f mailtrap
 ```
 
-## Example docker-compose configuration
+## Example docker compose configuration
 
-Please look at link:https://github.com/dbck/docker-mailtrap/blob/main/docker-compose.example.yml[docker-compose.example.yml]
+Please look at link:https://github.com/dbck/docker-mailtrap/blob/main/docker compose.example.yml[docker compose.example.yml]
 
 # JSON API
 
@@ -104,7 +104,7 @@ The container provides a simple API under `/api/inbox` which returns a rudimenta
 # Send test mail while container is running
 
 ```
-docker-compose exec mailtrap /bin/bash
+docker compose exec mailtrap /bin/bash
 telnet mailtrap 25
 ehlo example.com
 mail from: me@example.com

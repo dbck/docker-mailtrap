@@ -12,15 +12,15 @@ docker container run --rm -it dbck/mailtrap:dev
 ## Build, develop and test image
 
 ```
-export TAG=dev && docker-compose build && docker-compose up -d && docker-compose logs -f
+export TAG=dev && docker compose build && docker compose up -d && docker compose logs -f
 ```
 
 ```
-export TAG=dev && docker-compose up
+export TAG=dev && docker compose up
 ```
 
 ```
-export TAG=dev && docker-compose down
+export TAG=dev && docker compose down
 ```
 
 ## Build and push container image
@@ -34,8 +34,8 @@ docker push dbck/mailtrap:${TAG}
 
 ```
 export TAG=$(date +%Y%m%d-%H%M%S)
-docker-compose build
-docker-compose push
+docker compose build
+docker compose push
 ```
 
 # Build image and create a release
