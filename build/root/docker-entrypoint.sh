@@ -55,4 +55,4 @@ newaliases
 postmap /etc/postfix/transport
 
 # Start services
-/usr/bin/supervisord
+exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n

@@ -43,6 +43,8 @@ RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 COPY root/etc/postfix/* /etc/postfix/
 
 # Dovecot
+COPY root/usr/local/sbin/dovecot-start-wating-for-postfix.sh /usr/local/sbin/dovecot-start-wating-for-postfix.sh
+RUN chmod +x /usr/local/sbin/dovecot-start-wating-for-postfix.sh
 COPY root/etc/dovecot/conf.d/* /etc/dovecot/conf.d/
 RUN groupadd -g 5000 vmail && \
     useradd -g vmail -u 5000 vmail -d /var/mail/vmail -m && \
